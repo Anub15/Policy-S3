@@ -1,0 +1,48 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetBucketPublicAccessBlock",
+                "s3:GetBucketPolicyStatus",
+                "s3:GetAccessPointPolicyStatusForObjectLambda",
+                "s3:GetAccessPointPolicyForObjectLambda",
+                "s3:GetBucketAcl",
+                "s3:GetAccessPointConfigurationForObjectLambda",
+                "s3:GetAccessPointForObjectLambda"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:GetObject"
+            ],
+            "Resource": "arn:aws:s3:::s3-pruebas/*",
+            "Condition": {
+                "StringNotEqualsIfExists": {
+                    "s3:ExistingObjectTag/stage": "dev"
+                }
+            }
+        },
+        {
+            "Sid": "VisualEditor2",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetAccountPublicAccessBlock",
+                "s3:List*"
+            ],
+            "Resource": "arn:aws:s3:::*"
+        },
+        {
+            "Sid": "VisualEditor3",
+            "Effect": "Deny",
+            "Action": "s3:Delete*",
+            "Resource": "arn:aws:s3:::*"
+        }
+    ]
+}
